@@ -84,7 +84,7 @@ function stopRotateWheel() {
   ctx.font = "bold 20px 'Quicksand', sans-serif";
   ctx.fillStyle = "black";
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawWheel();
+  drawWheel();1
   ctx.fillText("You got: " + segments[index], canvas.width / 2 - 100, canvas.height / 2);
   ctx.restore();
   dingSound.play();
