@@ -1,6 +1,6 @@
-### Spin the Wheel Web App 🎡
+### Spin the Wheel Web App 🎡 (WIP)
 
-A fun and interactive **Spin the Wheel** web application built with **HTML**, **CSS**, and **JavaScript**. This app allows users to add options to a spinning wheel, choose colors for each segment, and spin the wheel to randomly select one of the options.
+A simple **Spin the Wheel** web application built with **HTML**, **CSS**, and **JavaScript**. This app allows users to add options to a spinning wheel, and spin the wheel to randomly select one of the options.
 
 #### Features:
 - Add custom options through an input field, separated by commas.
