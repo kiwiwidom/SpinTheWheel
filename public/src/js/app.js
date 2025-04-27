@@ -23,10 +23,21 @@ let spinAngleStart = 0;
 let spinTime = 0;
 let spinTimeTotal = 0;
 
+
 // Draw the wheel
 function drawWheel() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+    // Draw the marker above the wheel
+    ctx.save();
+    ctx.fillStyle = "red"; // Marker color
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2 - 10, 20); // Start at the left part of the marker
+    ctx.lineTo(canvas.width / 2 + 10, 20); // Draw to the right part of the marker
+    ctx.lineTo(canvas.width / 2, 0); // Tip of the marker
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+    
   if (segments.length === 0) {
     // If no segments yet, show a message
     ctx.save();
@@ -37,10 +48,10 @@ function drawWheel() {
     ctx.restore();
     return;
   }
-
   arc = Math.PI / (segments.length / 2); // Update arc size
-
   for (let i = 0; i < segments.length; i++) {
+    // Draw the marker above the wheel
+        
     let angle = startAngle + i * arc;
     ctx.fillStyle = colors[i % colors.length];
     ctx.beginPath();
@@ -58,7 +69,24 @@ function drawWheel() {
     ctx.font = "bold 20px 'Quicksand', sans-serif";
     ctx.fillText(segments[i], canvas.width / 2 - 10, 10);
     ctx.restore();
+
+    ctx.save();
+    ctx.fillStyle = "red"; // Marker color
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2 - 10, 20); // Start at the left part of the marker
+    ctx.lineTo(canvas.width / 2 + 10, 20); // Draw to the right part of the marker
+    ctx.lineTo(canvas.width / 2, 0); // Tip of the marker
+    ctx.closePath();
+    ctx.fill()
   }
+  ctx.save();
+  ctx.fillStyle = "red"; // Marker color
+  ctx.beginPath();
+  ctx.moveTo(canvas.width / 2 - 10, 20); // Start at the left part of the marker
+  ctx.lineTo(canvas.width / 2 + 10, 20); // Draw to the right part of the marker
+  ctx.lineTo(canvas.width / 2, 0); // Tip of the marker
+  ctx.closePath();
+  ctx.fill()
 }
 
 // Spin logic
@@ -84,8 +112,31 @@ function stopRotateWheel() {
   ctx.font = "bold 20px 'Quicksand', sans-serif";
   ctx.fillStyle = "black";
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawWheel();1
-  ctx.fillText("You got: " + segments[index], canvas.width / 2 - 100, canvas.height / 2);
+  drawWheel();
+  
+  // Calculate position for text box
+  const text = "You got: " + segments[index];
+  const textWidth = ctx.measureText(text).width;
+  const padding = 20;
+  const boxWidth = textWidth + 2 * padding;
+  const boxHeight = 45; // Height of the box, based on text size
+  const radius = 15; // Radius for rounded corners
+
+
+  // Draw background box
+  ctx.fillStyle = "white"; // Semi-transparent black
+  ctx.beginPath();
+  ctx.moveTo(canvas.width / 2 - boxWidth / 2 + radius, canvas.height / 2 - boxHeight / 2); // Start path from the rounded corner
+  ctx.arcTo(canvas.width / 2 - boxWidth / 2, canvas.height / 2 - boxHeight / 2, canvas.width / 2 - boxWidth / 2, canvas.height / 2 - boxHeight / 2 + boxHeight, radius); // Top-left corner
+  ctx.arcTo(canvas.width / 2 - boxWidth / 2, canvas.height / 2 - boxHeight / 2 + boxHeight, canvas.width / 2 - boxWidth / 2 + boxWidth, canvas.height / 2 - boxHeight / 2 + boxHeight, radius); // Bottom-left corner
+  ctx.arcTo(canvas.width / 2 - boxWidth / 2 + boxWidth, canvas.height / 2 - boxHeight / 2 + boxHeight, canvas.width / 2 - boxWidth / 2 + boxWidth, canvas.height / 2 - boxHeight / 2, radius); // Bottom-right corner
+  ctx.arcTo(canvas.width / 2 - boxWidth / 2 + boxWidth, canvas.height / 2 - boxHeight / 2, canvas.width / 2 - boxWidth / 2, canvas.height / 2 - boxHeight / 2, radius); // Top-right corner
+  ctx.closePath();
+  ctx.fill();
+  // Draw the text over the box
+  ctx.fillStyle = "black"; // Text color
+  ctx.fillText(text, canvas.width / 2 - 60, canvas.height / 2 + 5);
+
   ctx.restore();
   dingSound.play();
 }
