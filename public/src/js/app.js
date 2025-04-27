@@ -5,6 +5,8 @@ const addOptionButton = document.getElementById('addOptionButton');
 const optionInput = document.getElementById('optionInput');
 const spinSound = document.getElementById('spinSound');
 const dingSound = document.getElementById('dingSound');
+const clearSegmentsButton = document.getElementById("clearSegments");
+
 
 // Start with empty options
 let segments = [];
@@ -123,8 +125,7 @@ function stopRotateWheel() {
   const radius = 15; // Radius for rounded corners
 
 
-  // Draw background box
-  ctx.fillStyle = "white"; // Semi-transparent black
+  ctx.fillStyle = "white";
   ctx.beginPath();
   ctx.moveTo(canvas.width / 2 - boxWidth / 2 + radius, canvas.height / 2 - boxHeight / 2); // Start path from the rounded corner
   ctx.arcTo(canvas.width / 2 - boxWidth / 2, canvas.height / 2 - boxHeight / 2, canvas.width / 2 - boxWidth / 2, canvas.height / 2 - boxHeight / 2 + boxHeight, radius); // Top-left corner
@@ -133,7 +134,7 @@ function stopRotateWheel() {
   ctx.arcTo(canvas.width / 2 - boxWidth / 2 + boxWidth, canvas.height / 2 - boxHeight / 2, canvas.width / 2 - boxWidth / 2, canvas.height / 2 - boxHeight / 2, radius); // Top-right corner
   ctx.closePath();
   ctx.fill();
-  // Draw the text over the box
+
   ctx.fillStyle = "black"; // Text color
   ctx.fillText(text, canvas.width / 2 - 60, canvas.height / 2 + 5);
 
@@ -159,6 +160,7 @@ addOptionButton.addEventListener("click", function() {
       }
   
       optionInput.value = ""; // Clear input
+      saveSegments();
       drawWheel();
     }
   });
@@ -173,5 +175,30 @@ spinButton.addEventListener("click", function() {
   spinSound.play();
 });
 
-// Draw empty wheel initially
+
+// Cookie Manager
+function saveSegments() {
+  document.cookie = "wheelSegments=" + encodeURIComponent(JSON.stringify(segments)) + "; path=/; max-age=" + (60*60*24*30); // 30 days
+}
+
+function loadSegments() {
+  const cookies = document.cookie.split('; ');
+  for (let cookie of cookies) {
+    const [name, value] = cookie.split('=');
+    if (name === "wheelSegments") {
+      segments = JSON.parse(decodeURIComponent(value));
+      break;
+    }
+  }
+}
+
+clearSegmentsButton.addEventListener("click", function() {
+  segments = [];
+  saveSegments();
+  drawWheel();
+});
+
+loadSegments();
 drawWheel();
+
+

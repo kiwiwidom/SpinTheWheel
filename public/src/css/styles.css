@@ -74,3 +74,18 @@ h1 {
   border: 2px solid;
   border-color: black;
 }
+
+
+#clearSegments {
+  padding: 10px 20px;
+  font-size: 15px;
+  margin-left: 10px;
+  background-color: #CC322A;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  border: 2px solid;
+  border-color: black;
+  cursor: pointer;
+}
+
