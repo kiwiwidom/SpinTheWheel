@@ -26,9 +26,9 @@ h1 {
 
 #addOptionButton {
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 15px;
   margin-left: 10px;
-  background-color: #4CAF50;
+  background-color: #6B892B;
   color: white;
   border: none;
   border-radius: 20px;
@@ -58,6 +58,7 @@ h1 {
   color: white;
   border-radius: 20px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 #spinButton:hover {
